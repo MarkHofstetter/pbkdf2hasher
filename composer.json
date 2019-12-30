@@ -1,0 +1,43 @@
+{
+    "name": "markhofstetter/pbkdf2hasher",
+    "description": "enable pbkdf2 hashing of laravel password to be compatible with pythons werkzeug",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mark Hofstetter",
+            "email": "mark@hofstetter.at",
+            "homepage": "https://github.com/MarkHofstetter/"
+        }
+    ],
+    "homepage": "https://github.com/markhofstetter/pbkdf2hasher",
+    "keywords": ["Laravel", "Pbkdf2Hasher"],
+    "require": {
+        "illuminate/support": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~7.0",
+        "mockery/mockery": "^1.1",
+        "orchestra/testbench": "~3.0",
+        "sempro/phpunit-pretty-print": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "MarkHofstetter\\Pbkdf2Hasher\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MarkHofstetter\\Pbkdf2Hasher\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MarkHofstetter\\Pbkdf2Hasher\\Pbkdf2HasherServiceProvider"
+            ],
+            "aliases": {
+                "Pbkdf2Hasher": "MarkHofstetter\\Pbkdf2Hasher\\Facades\\Pbkdf2Hasher"
+            }
+        }
+    }
+}
