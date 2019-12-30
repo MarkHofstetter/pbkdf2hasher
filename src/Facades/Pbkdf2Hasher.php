@@ -41,7 +41,7 @@ class Pbkdf2Hasher extends Facade
         $this->algo = $options['algo'] ?? $this->algo;
         $this->iterations = $options['iterations'] ?? $this->iterations;
         $this->length = $options['length'] ?? $this->length;
-        $this->salt = $options['salt'] ??  $salt = openssl_random_pseudo_bytes(16);
+        $this->salt = $options['salt'] ??  $salt = bin2hex(openssl_random_pseudo_bytes(8));
         $hash = hash_pbkdf2($this->algo, $value, $this->salt, $this->iterations, $this->length);
         return sprintf("%s:%s:%s$%s$%s", $this->hashing_method, $this->algo, $this->iterations, $this->salt, $hash);
     }
