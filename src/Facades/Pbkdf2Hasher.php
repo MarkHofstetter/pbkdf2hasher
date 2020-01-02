@@ -1,10 +1,15 @@
 <?php
 
 namespace MarkHofstetter\Pbkdf2Hasher\Facades;
+# namespace Facades;
 
 use Illuminate\Support\Facades\Facade;
+use Illuminate\Contracts\Hashing\HashManager;
+# extends HashManager implements Hasher
+
 
 class Pbkdf2Hasher extends Facade
+# class Pbkdf2Hasher extends HashManager implements Hasher
 {
     protected $algo = 'sha512';
     protected $iterations = '100001';
@@ -54,15 +59,11 @@ class Pbkdf2Hasher extends Facade
         }
 
         preg_match('/(.+?)\:(.+?)\:(.+?)\$(.+?)\$(.*)/', $hashedValue, $matches);
-        if ($matches) {
-            $options['algo'] = $matches[2];
-            $options['iterations'] = $matches[3];
-            $options['salt'] =  $matches[4];
-            $hash =  $matches[5];
-        } else {
-            return false;
-        }
-   
+        $options['algo'] = $matches[2];
+        $options['iterations'] = $matches[3];
+        $options['salt'] =  $matches[4];
+        $hash =  $matches[5];
+
         return ($this->make($value, $options) === $hashedValue);
     }
 
