@@ -1,12 +1,17 @@
 <?php
 
 namespace MarkHofstetter\Pbkdf2Hasher;
+# namespace App\Providers;
 
-# use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\ServiceProvider;
 use Illuminate\Hashing\HashServiceProvider;
+use Illuminate\Support\Facades\Hash;
 use Pbkdf2Hasher;
 
-class Pbkdf2HasherServiceProvider extends HashServiceProvider
+
+# class MarkHofstetter_Pbkdf2Hasher_Pbkdf2HasherServiceProvider extends ServiceProvider
+class Pbkdf2HasherServiceProvider extends ServiceProvider
+# class HashServiceProvider extends ServiceProvider
 {
     /**
      * Perform post-registration booting of services.
@@ -15,10 +20,9 @@ class Pbkdf2HasherServiceProvider extends HashServiceProvider
      */
     public function boot()
     {
-        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'markhofstetter');
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'markhofstetter');
-        // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        // $this->loadRoutesFrom(__DIR__.'/routes.php');
+        $this->app->make('hash')->extend('pbkdf2', function () {
+            return new Pbkdf2Hasher($options = $this->app->config->get('pbkdf2hasher'));
+        });
 
         // Publishing is only necessary when using the CLI.
         if ($this->app->runningInConsole()) {
